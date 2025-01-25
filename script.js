@@ -9,13 +9,10 @@ const images = [
 
 // Function to create a loading spinner
 function showLoadingSpinner() {
-  const spinner = document.createElement("div");
+  const spinner = document.createElement("tr");
   spinner.setAttribute("id", "loading");
   spinner.innerHTML = `
-    <div class="spinner">
-      <div class="double-bounce1"></div>
-      <div class="double-bounce2"></div>
-    </div>
+    <td colspan="2">Loading...</td>
   `;
   outputDiv.appendChild(spinner);
 }
@@ -52,7 +49,12 @@ function downloadImages(images) {
 
       // Display all images
       loadedImages.forEach((img) => {
-        outputDiv.appendChild(img);
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td><img src="${img.src}" alt="Loaded Image" style="width:100px"></td>
+          <td>${img.src}</td>
+        `;
+        outputDiv.appendChild(row);
       });
     })
     .catch((error) => {
