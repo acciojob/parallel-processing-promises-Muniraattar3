@@ -1,6 +1,5 @@
 const outputDiv = document.getElementById("output");
 
-// Array of image URLs
 const images = [
   { url: "https://picsum.photos/id/237/200/300" },
   { url: "https://picsum.photos/id/238/200/300" },
@@ -9,11 +8,9 @@ const images = [
 
 // Function to create a loading spinner
 function showLoadingSpinner() {
-  const spinner = document.createElement("tr");
-  spinner.setAttribute("id", "loading");
-  spinner.innerHTML = `
-    <td colspan="2">Loading...</td>
-  `;
+  const spinner = document.createElement("div");
+  spinner.id = "loading";
+  spinner.textContent = "Loading...";
   outputDiv.appendChild(spinner);
 }
 
@@ -37,7 +34,7 @@ function loadImage(image) {
 
 // Function to download and display images
 function downloadImages(images) {
-  showLoadingSpinner();
+  showLoadingSpinner(); // Show spinner immediately
 
   // Create an array of promises
   const imagePromises = images.map((image) => loadImage(image));
@@ -49,11 +46,8 @@ function downloadImages(images) {
 
       // Display all images
       loadedImages.forEach((img) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td><img src="${img.src}" alt="Loaded Image" style="width:100px"></td>
-          <td>${img.src}</td>
-        `;
+        const row = document.createElement("div");
+        row.innerHTML = `<img src="${img.src}" alt="Loaded Image" style="width:100px">`;
         outputDiv.appendChild(row);
       });
     })
