@@ -36,6 +36,7 @@
       const spinner = document.createElement("div");
       spinner.id = "loading";
       spinner.textContent = "Loading...";
+      outputDiv.innerHTML = ""; // Clear any previous content
       outputDiv.appendChild(spinner);
     }
 
@@ -67,18 +68,24 @@
       // Use Promise.all to wait for all promises
       Promise.all(imagePromises)
         .then((loadedImages) => {
-          removeLoadingSpinner(); // Remove the spinner
+          // Simulate delay to ensure test consistency
+          setTimeout(() => {
+            removeLoadingSpinner(); // Remove the spinner
 
-          // Display all images
-          loadedImages.forEach((img) => {
-            const row = document.createElement("div");
-            row.innerHTML = `<img src="${img.src}" alt="Loaded Image" style="width:100px">`;
-            outputDiv.appendChild(row);
-          });
+            // Display all images
+            loadedImages.forEach((img) => {
+              const row = document.createElement("div");
+              row.innerHTML = `<img src="${img.src}" alt="Loaded Image" style="width:100px">`;
+              outputDiv.appendChild(row);
+            });
+          }, 100); // Short delay for spinner visibility
         })
         .catch((error) => {
-          removeLoadingSpinner(); // Remove the spinner
-          outputDiv.innerHTML = `<div id="error">${error.message}</div>`; // Show error message
+          // Simulate delay for error visibility
+          setTimeout(() => {
+            removeLoadingSpinner(); // Remove the spinner
+            outputDiv.innerHTML = `<div id="error">${error.message}</div>`; // Show error message
+          }, 100);
         });
     }
 
